@@ -1,8 +1,8 @@
 [Icon Theme]
-Name=COSMIC
-Comment=COSMIC Icons
+Name=WMDE
+Comment=WMDE Icons
 Example=folder
-Inherits=Pop,hicolor
+Inherits=hicolor
 
 # KDE Specific Stuff
 DisplayDepth=32

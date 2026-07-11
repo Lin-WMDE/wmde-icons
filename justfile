@@ -3,7 +3,7 @@ rootdir := ''
 prefix := '/usr'
 base-dir := absolute_path(clean(rootdir / prefix))
 install-dir := base-dir / 'share'
-icons := install-dir / 'icons' / 'Cosmic'
+icons := install-dir / 'icons' / 'WMDE'
 export ICONS := icons
 
 default:
