@@ -3,11 +3,13 @@
 #
 # Builds our fork Lin-WMDE/wmde-icons (branch wmde). Data-only icon theme:
 # installs /usr/share/icons/WMDE (index.theme Name=WMDE, Inherits=hicolor).
+# SELF-CONTAINED: ships/theme/ = merged artwork (WMDE-own + Cosmic + Pop + Adwaita),
+# so it needs NO cosmic-icon-theme / pop-icon-theme; it inherits only hicolor.
 # Installs alongside cosmic-icons (distinct theme dir), so NO conflicts/replaces cosmic-icons.
 pkgname=wmde-icons
 pkgver=1.0.0
 pkgrel=1
-pkgdesc="WMDE icon theme (fork of cosmic-icons) - installs /usr/share/icons/WMDE"
+pkgdesc="WMDE icon theme (self-contained fork of cosmic-icons) - installs /usr/share/icons/WMDE"
 arch=('any')
 url="https://wmde.fun"
 # icon assets are CC-BY-SA-4.0; the install scripts are GPL-3.0 (see README/LICENSE)

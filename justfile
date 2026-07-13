@@ -9,17 +9,12 @@ export ICONS := icons
 default:
     @just --list
 
-install-freedesktop:
-    @just freedesktop/install
-
-install-extra:
-    @just extra/install
-
-install-index:
+# Install the self-contained theme (merged artwork) + index.theme.
+# cp -a preserves alias symlinks; do NOT use `install` here (it dereferences symlinks).
+install:
+    mkdir -p {{icons}}
+    cp -a ./theme/. {{icons}}/
     install -Dm0644 ./index.theme {{icons}}/index.theme
-
-# Install everything
-install: (install-freedesktop) (install-extra) (install-index)
 
 # Uninstalls everything (requires same arguments as given to install)
 uninstall:
