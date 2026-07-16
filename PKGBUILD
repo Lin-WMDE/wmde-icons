@@ -8,12 +8,13 @@
 # Installs alongside cosmic-icons (distinct theme dir), so NO conflicts/replaces cosmic-icons.
 pkgname=wmde-icons
 pkgver=1.0.0
-pkgrel=1
+pkgrel=2
 pkgdesc="WMDE icon theme (self-contained fork of cosmic-icons) - installs /usr/share/icons/WMDE"
 arch=('any')
 url="https://wmde.fun"
-# icon assets are CC-BY-SA-4.0; the install scripts are GPL-3.0 (see README/LICENSE)
-license=('CC-BY-SA-4.0' 'GPL-3.0-or-later')
+# icon assets are CC-BY-SA-4.0 (Cosmic/Pop) and CC-BY-SA-3.0 (bundled Adwaita);
+# the install scripts are GPL-3.0 (see README/COPYING for per-source attribution)
+license=('CC-BY-SA-4.0' 'CC-BY-SA-3.0' 'GPL-3.0-or-later')
 depends=('hicolor-icon-theme')
 makedepends=('just' 'git')
 source=("$pkgname::git+https://github.com/Lin-WMDE/wmde-icons.git#branch=wmde")
@@ -21,8 +22,10 @@ sha256sums=('SKIP')
 
 pkgver() {
   cd "$srcdir/$pkgname"
-  git describe --long --tags --abbrev=7 2>/dev/null | sed 's/^epoch-//;s/^v//;s/\([^-]*-g\)/r\1/;s/-/./g' ||
-    printf '1.0.0.r%s.g%s' "$(git rev-list --count HEAD)" "$(git rev-parse --short=7 HEAD)"
+  local desc
+  desc=$(git describe --long --tags --abbrev=7 2>/dev/null) \
+    || desc="1.0.0-$(git rev-list --count HEAD)-g$(git rev-parse --short=7 HEAD)"
+  printf '%s' "$desc" | sed 's/^epoch-//;s/^v//;s/\([^-]*-g\)/r\1/;s/-/./g'
 }
 
 package() {
