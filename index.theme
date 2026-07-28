@@ -1,18 +1,24 @@
 [Icon Theme]
-Name=WMDE
-Comment=WMDE Icons
+Name=WMDE-Extra
+Comment=WMDE-specific icon art
 Example=folder
-# Qt applications look up plain (non -symbolic) icon names, and this theme carries
-# most of its action art as -symbolic only, so a Qt toolbar would come up half empty.
-# The WMDE-Base themes (package wmde-icons-base) fill those names, in two ink colours:
-# WMDE-Base is dark ink for light backgrounds, WMDE-Base-Dark is light ink for dark ones.
+# This is NOT the theme anyone selects or that anything points at - it is the bottom
+# layer. The user-facing WMDE and WMDE-Dark themes come from wmde-icons-base (a fork of
+# Qogir) and inherit this one, so the full chain is:
 #
-# This file is also the source of the WMDE-Dark theme installed beside it (see justfile):
-# same art, but inheriting WMDE-Base-Dark, so the settings daemon can pick a set per mode.
-# WMDE-Dark symlinks the art directories rather than inheriting WMDE, and that is load
-# bearing: with Inherits=WMDE,... depth-first resolution would reach WMDE-Base (dark ink)
-# through WMDE before ever getting to WMDE-Base-Dark, undoing the whole point.
-Inherits=WMDE-Base,hicolor
+#   WMDE-Dark (light ink) -> WMDE (all of the art) -> WMDE-Extra (this) -> hicolor
+#   WMDE      (dark ink)  -> WMDE-Extra (this) -> hicolor
+#
+# What survives here in practice is the art the other set has no name for: our own app
+# icons, the distro logos, the wmde-illustration-* art wmde-settings draws, and roughly
+# 111 places and 130 categories names.
+#
+# Ordering here is depth-first and unforgiving. WMDE-Dark inherits WMDE (not the other
+# way round) precisely so the light-ink art is reached first and the full set second; an
+# arrangement where a theme inherits BOTH a recoloured variant and the set it was
+# recoloured from will silently resolve to the wrong ink.
+Hidden=true
+Inherits=hicolor
 
 # KDE Specific Stuff
 DisplayDepth=32

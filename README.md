@@ -1,15 +1,20 @@
 WMDE Icons
 ==========
 
-Icon theme for the WMDE desktop (fork of cosmic-icons). The `theme/` directory bundles
-merged artwork from Cosmic, Pop, and Adwaita, so it needs no `cosmic-icon-theme` or
+WMDE-specific icon art (fork of cosmic-icons). The `theme/` directory bundles merged
+artwork from Cosmic, Pop, and Adwaita, so it needs no `cosmic-icon-theme` or
 `pop-icon-theme`.
 
-Two themes are installed: `WMDE` and `WMDE-Dark`. They carry the same art and differ
-only in what they fall back to - `wmde-icons-base` ships that fallback in a dark-ink and
-a light-ink variant, and the settings daemon points Qt at whichever matches the current
-mode. The fallback exists because Qt looks up plain (non `-symbolic`) icon names and
-most of the action art here is `-symbolic` only.
+It installs as `WMDE-Extra`, which is the **bottom** layer and not a theme anything
+points at. The user-facing `WMDE` and `WMDE-Dark` come from `wmde-icons-base` and inherit
+this one:
+
+    WMDE-Dark (light ink) -> WMDE (all of the art) -> WMDE-Extra -> hicolor
+    WMDE      (dark ink)  -> WMDE-Extra -> hicolor
+
+So what actually surfaces from here is the art the other set has no name for: our own app
+icons, the distro logos, the `wmde-illustration-*` art `wmde-settings` draws, and roughly
+111 `places` and 130 `categories` names.
 
 ## Copying or Reusing
 

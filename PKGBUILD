@@ -1,24 +1,28 @@
 # Maintainer: WMDE <https://wmde.fun>
 # Contributor: System76 <info@system76.com> (original cosmic-icons)
 #
-# Builds our fork Lin-WMDE/wmde-icons (branch wmde). Data-only icon theme: installs
-# /usr/share/icons/WMDE and /usr/share/icons/WMDE-Dark (same art, different fallback).
-# SELF-CONTAINED: ships/theme/ = merged artwork (WMDE-own + Cosmic + Pop + Adwaita),
-# so it needs NO cosmic-icon-theme / pop-icon-theme. It does inherit wmde-icons-base,
-# but only to fill the plain action names Qt asks for and this theme ships as
-# -symbolic only (document-open, edit-copy, go-up, ... - 28 of 35 sampled names).
-# That fallback replaced breeze-icons, which had no light-ink/dark-ink split.
+# Builds our fork Lin-WMDE/wmde-icons (branch wmde). Data-only: installs the merged
+# artwork (WMDE-own + Cosmic + Pop + Adwaita) as /usr/share/icons/WMDE-Extra, so it needs
+# NO cosmic-icon-theme / pop-icon-theme.
+#
+# WMDE-Extra is the BOTTOM layer, not the theme anything points at: wmde-icons-base owns
+# the user-facing WMDE / WMDE-Dark and inherits this. What actually surfaces from here is
+# the art that set has no name for - our own app icons, the distro logos, the
+# wmde-illustration-* art, ~111 places and ~130 categories names.
+#
+# Deliberately does NOT depend on wmde-icons-base: the dependency runs the other way, and
+# declaring it here too would be a cycle.
 # Installs alongside cosmic-icons (distinct theme dir), so NO conflicts/replaces cosmic-icons.
 pkgname=wmde-icons
 pkgver=1.0.0
 pkgrel=2
-pkgdesc="WMDE icon theme (self-contained fork of cosmic-icons) - installs /usr/share/icons/WMDE{,-Dark}"
+pkgdesc="WMDE-specific icon art (fork of cosmic-icons) - installs /usr/share/icons/WMDE-Extra"
 arch=('any')
 url="https://wmde.fun"
 # icon assets are CC-BY-SA-4.0 (Cosmic/Pop) and CC-BY-SA-3.0 (bundled Adwaita);
 # the install scripts are GPL-3.0 (see README/COPYING for per-source attribution)
 license=('CC-BY-SA-4.0' 'CC-BY-SA-3.0' 'GPL-3.0-or-later')
-depends=('hicolor-icon-theme' 'wmde-icons-base')
+depends=('hicolor-icon-theme')
 makedepends=('just' 'git')
 source=("$pkgname::git+https://github.com/Lin-WMDE/wmde-icons.git#branch=wmde")
 sha256sums=('SKIP')
