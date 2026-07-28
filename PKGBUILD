@@ -1,23 +1,24 @@
 # Maintainer: WMDE <https://wmde.fun>
 # Contributor: System76 <info@system76.com> (original cosmic-icons)
 #
-# Builds our fork Lin-WMDE/wmde-icons (branch wmde). Data-only icon theme:
-# installs /usr/share/icons/WMDE (index.theme Name=WMDE, Inherits=breeze-dark,breeze,hicolor).
+# Builds our fork Lin-WMDE/wmde-icons (branch wmde). Data-only icon theme: installs
+# /usr/share/icons/WMDE and /usr/share/icons/WMDE-Dark (same art, different fallback).
 # SELF-CONTAINED: ships/theme/ = merged artwork (WMDE-own + Cosmic + Pop + Adwaita),
-# so it needs NO cosmic-icon-theme / pop-icon-theme. It does inherit breeze-icons,
+# so it needs NO cosmic-icon-theme / pop-icon-theme. It does inherit wmde-icons-base,
 # but only to fill the plain action names Qt asks for and this theme ships as
-# -symbolic only (document-open, edit-copy, go-up, ... - 21 of 35 sampled names).
+# -symbolic only (document-open, edit-copy, go-up, ... - 28 of 35 sampled names).
+# That fallback replaced breeze-icons, which had no light-ink/dark-ink split.
 # Installs alongside cosmic-icons (distinct theme dir), so NO conflicts/replaces cosmic-icons.
 pkgname=wmde-icons
 pkgver=1.0.0
 pkgrel=2
-pkgdesc="WMDE icon theme (self-contained fork of cosmic-icons) - installs /usr/share/icons/WMDE"
+pkgdesc="WMDE icon theme (self-contained fork of cosmic-icons) - installs /usr/share/icons/WMDE{,-Dark}"
 arch=('any')
 url="https://wmde.fun"
 # icon assets are CC-BY-SA-4.0 (Cosmic/Pop) and CC-BY-SA-3.0 (bundled Adwaita);
 # the install scripts are GPL-3.0 (see README/COPYING for per-source attribution)
 license=('CC-BY-SA-4.0' 'CC-BY-SA-3.0' 'GPL-3.0-or-later')
-depends=('hicolor-icon-theme' 'breeze-icons')
+depends=('hicolor-icon-theme' 'wmde-icons-base')
 makedepends=('just' 'git')
 source=("$pkgname::git+https://github.com/Lin-WMDE/wmde-icons.git#branch=wmde")
 sha256sums=('SKIP')

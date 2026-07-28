@@ -4,11 +4,15 @@ Comment=WMDE Icons
 Example=folder
 # Qt applications look up plain (non -symbolic) icon names, and this theme carries
 # most of its action art as -symbolic only, so a Qt toolbar would come up half empty.
-# breeze-dark fills those gaps: it is the light-ink Breeze set, which matches the WMDE
-# default (dark). In light mode those inherited icons are light-on-light - the proper
-# fix is a WMDE-dark theme variant that inherits breeze-dark while WMDE inherits breeze,
-# so the Qt writer can pick per mode again.
-Inherits=breeze-dark,breeze,hicolor
+# The WMDE-Base themes (package wmde-icons-base) fill those names, in two ink colours:
+# WMDE-Base is dark ink for light backgrounds, WMDE-Base-Dark is light ink for dark ones.
+#
+# This file is also the source of the WMDE-Dark theme installed beside it (see justfile):
+# same art, but inheriting WMDE-Base-Dark, so the settings daemon can pick a set per mode.
+# WMDE-Dark symlinks the art directories rather than inheriting WMDE, and that is load
+# bearing: with Inherits=WMDE,... depth-first resolution would reach WMDE-Base (dark ink)
+# through WMDE before ever getting to WMDE-Base-Dark, undoing the whole point.
+Inherits=WMDE-Base,hicolor
 
 # KDE Specific Stuff
 DisplayDepth=32
