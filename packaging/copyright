@@ -1,0 +1,8 @@
+Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Source: https://github.com/Lin-WMDE/wmde-icons
+
+Files: *
+Copyright: 2024-2026 WMDE <https://wmde.fun>
+           2024 System76 <info@system76.com>
+License: CC-BY-SA-4.0 AND CC-BY-SA-3.0 AND GPL-3.0-or-later
+ On Debian systems the license texts can be found in `/usr/share/common-licenses/'.
