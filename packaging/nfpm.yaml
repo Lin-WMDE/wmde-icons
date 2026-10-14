@@ -1,0 +1,51 @@
+# Один конфиг nFPM на оба формата. Стейджинг готовит `just package-staging`,
+# версию всегда подставляет just через env WMDE_VERSION (см. justfile).
+# ВАЖНО: только ${WMDE_VERSION} без :-дефолта — nFPM раскрывает env через
+# os.ExpandEnv и :- не понимает (версия молча станет 0.0.0~rc0).
+#
+# Пакет data-only: сборки нет. Нижний слой WMDE-Extra, иконки ставит cp -a
+# (симлинки хранятся как симлинки — см. комментарий в justfile).
+name: wmde-icons
+arch: all
+version: ${WMDE_VERSION}
+release: 1
+maintainer: WMDE <wmde@wmde.fun>
+description: |-
+  WMDE extra icon art (cosmic-icons fork)
+  Bottom WMDE-Extra layer under the user-facing themes.
+homepage: https://wmde.fun
+license: CC-BY-SA-4.0 AND CC-BY-SA-3.0 AND GPL-3.0-or-later
+section: x11
+
+# Намеренно БЕЗ зависимости на wmde-icons-base (см. PKGBUILD): зависимость
+# идёт в другую сторону, иначе цикл. Только hicolor.
+depends:
+  - hicolor-icon-theme
+
+contents:
+  - src: target/staging/usr/share/icons/
+    dst: /usr/share/icons/
+    type: tree
+  # doc (copyright + changelog.Debian.gz) готовит just package-doc.
+  # Только для deb: в rpm нет %doc-разметки у nFPM,
+  # а лицензия и changelog там и так есть (License-тег + %changelog).
+  - src: target/staging/usr/share/doc/wmde-icons/
+    dst: /usr/share/doc/wmde-icons/
+    type: tree
+    packager: deb
+
+scripts:
+  postinstall: packaging/postinstall.sh
+  postremove: packaging/postremove.sh
+
+# %changelog для rpm генерит just package-staging (иначе E: no-changelogname-tag).
+# Путь от корня репо: nFPM резолвит его от cwd, а не от каталога конфига.
+changelog: target/changelog.yaml
+
+overrides:
+  deb:
+    depends:
+      - hicolor-icon-theme
+  rpm:
+    depends:
+      - hicolor-icon-theme
